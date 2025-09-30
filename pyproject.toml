@@ -1,0 +1,13 @@
+[project]
+name = "metaOA"
+version = "0.1.0"
+description = "Simple Python class testing playground"
+requires-python = ">=3.11"
+dependencies = [
+  "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src"]
