@@ -1,6 +1,8 @@
 # meta OA practice
 
-This project is designed to prepare candidates for the Meta OA Assessment. It is a time-based key-value store with TTL and versioning, built with Python, UV, and pytest. You’ll implement the `Solution` class in `src/database.py` to satisfy a comprehensive unit test suite.
+This project is designed to prepare candidates for the Meta OA Assessment. 
+
+In this project, you will build a time-based key-value store with TTL and versioning, built with Python, UV, and pytest. You’ll implement the `Solution` class in `src/database.py` to satisfy a comprehensive unit test suite.
 
 Inspired by: https://www.hellointerview.com/guides/meta/e5
 
