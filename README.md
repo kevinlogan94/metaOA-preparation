@@ -18,17 +18,33 @@ uv sync                         # install dependencies from pyproject.toml
 ```
 
 ## Run tests
+
+Tests are organized into 5 files by category for focused practice:
+
 ```bash
-# run entire suite
+# Run all tests (37 total)
+uv run pytest tests/ -v
+
+# Run entire suite (quiet mode)
 uv run pytest -q
 
-# run a single test by name
-uv run pytest tests/test_database.py::test_set_and_get_immediately -v
+# Run one test file at a time
+uv run pytest tests/test_basic.py -v       # 5 tests - basic set/get
+uv run pytest tests/test_ttl.py -v         # 8 tests - TTL expiration
+uv run pytest tests/test_versioning.py -v  # 10 tests - point-in-time queries
+uv run pytest tests/test_delete.py -v      # 6 tests - delete operations
+uv run pytest tests/test_advanced.py -v    # 8 tests - edge cases
 
-# run tests matching a pattern
+# Run multiple specific files
+uv run pytest tests/test_basic.py tests/test_ttl.py -v
+
+# Run a single test by name
+uv run pytest tests/test_basic.py::test_set_and_get_immediately -v
+
+# Run tests matching a pattern (across all files)
 uv run pytest -k "ttl" -v
 
-# stop at first failure (useful for TDD)
+# Stop at first failure (useful for TDD)
 uv run pytest -x
 ```
 
@@ -38,9 +54,13 @@ metaOA/
   pyproject.toml
   pytest.ini
   src/
-    database.py          # implement Solution here
+    database.py             # implement Solution here
   tests/
-    test_database.py     # comprehensive unit tests
+    test_basic.py           # basic set/get operations
+    test_ttl.py             # TTL expiration logic
+    test_versioning.py      # point-in-time queries
+    test_delete.py          # delete operations
+    test_advanced.py        # edge cases & boundaries
 ```
 
 ## Problem overview
@@ -63,9 +83,14 @@ Focus areas include overwrites, expirations, mixed TTL/no-TTL keys, and timeline
   - Removes the key from `timestamp` onward until re-set.
 
 ## Development workflow
-- Start with the first test and iterate:
-  - `uv run pytest tests/test_database.py::test_set_and_get_immediately -v`
-- Once passing, proceed test-by-test or use `-x` to stop at first failure.
+- Start with basic tests and work through each category:
+  - `uv run pytest tests/test_basic.py -v`
+  - `uv run pytest tests/test_ttl.py -v`
+  - `uv run pytest tests/test_versioning.py -v`
+  - `uv run pytest tests/test_delete.py -v`
+  - `uv run pytest tests/test_advanced.py -v`
+- Or use `-x` to stop at first failure across all tests:
+  - `uv run pytest tests/ -x`
 - If imports act oddly, ensure files are saved and clear caches:
   - `rm -rf .pytest_cache src/__pycache__ tests/__pycache__`
 
