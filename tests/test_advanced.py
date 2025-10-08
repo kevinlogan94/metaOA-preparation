@@ -48,9 +48,9 @@ def test_overlapping_ttls_choose_latest_valid():
 def test_ttl_boundary_half_open():
     """TTL window should be half-open [set_ts, set_ts+ttl): expired exactly at boundary."""
     db = Solution()
-    db.set("k", "v", timestamp=100, ttl=5)  # valid 100..104
-    assert db.get("k", timestamp=104) is None
-    assert db.get("k", timestamp=103) == "v"
+    db.set("k", "v", timestamp=100, ttl=5)  # valid [100, 105) -> 100..104
+    assert db.get("k", timestamp=104) == "v"
+    assert db.get("k", timestamp=105) is None
 
 
 @pytest.mark.xfail(reason="Strict interpretation: ttl=0 means immediately expired; implementation may treat as no TTL.")
