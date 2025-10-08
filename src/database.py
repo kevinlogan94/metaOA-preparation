@@ -54,7 +54,7 @@ class Solution:
                 continue
             
             if record["timestamp"] <= timestamp:
-                if record["deleted"] == False:
+                if not record["deleted"]:
                     return record["value"]
                 else:
                     return None
